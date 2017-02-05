@@ -1,0 +1,13 @@
+{
+	"windowTitle": "Kiwi IRC - The web IRC client",
+	"startupScreen": "customServer",
+	"kiwiServer": "/webirc/kiwiirc/",
+	"startupOptions" : {
+		"server": "irc.freenode.net",
+		"port": 6667,
+		"tls": false,
+		"direct": false,
+		"channel": "#kiwiirc",
+		"nick": "kiwi?"
+	}
+}
