@@ -13,9 +13,9 @@ cd webircgateway
 ./webircgateway.sh prepare
 
 echo Building...
-GOOS=darwin GOARCH=amd64 go build -o webircgateway.darwin src/*.go
-GOOS=linux GOARCH=386 go build -o webircgateway.linux_386 src/*.go
-GOOS=linux GOARCH=amd64 go build -o webircgateway.linux_amd64 src/*.go
+GOOS=darwin GOARCH=amd64 ./webircgateway.sh build webircgateway.darwin
+GOOS=linux GOARCH=386 ./webircgateway.sh build webircgateway.linux_386
+GOOS=linux GOARCH=amd64 ./webircgateway.sh build webircgateway.linux_amd64
 
 packageDist () {
 	date=`date +%Y%m%d`
