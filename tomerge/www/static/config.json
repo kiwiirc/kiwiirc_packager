@@ -3,7 +3,7 @@
 	"startupScreen": "customServer",
 	"kiwiServer": "/webirc/kiwiirc/",
 	"startupOptions" : {
-		"server": "irc.freenode.net",
+		"server": "irc.kiwiirc.com",
 		"port": 6667,
 		"tls": false,
 		"direct": false,
