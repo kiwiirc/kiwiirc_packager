@@ -96,7 +96,8 @@ make_deb() {
 	--deb-init scripts/init/webircgateway \
 	--after-install scripts/deb/after-install \
 	--before-remove scripts/deb/before-remove \
-	--after-upgrade scripts/deb/after-upgrade
+	--after-upgrade scripts/deb/after-upgrade \
+	--deb-no-default-config-files
 }
 
 # call with make_rpm "arch"
