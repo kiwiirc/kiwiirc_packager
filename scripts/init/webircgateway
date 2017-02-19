@@ -3,6 +3,8 @@
 # Provides:         webircgateway
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
+# Required-Start:
+# Required-Stop:
 # Short-Description: Kiwiirc Webircgateway
 # Description:       Init script for Kiwiirc Webircgateway
 ### END INIT INFO
@@ -13,8 +15,7 @@ user="root"
 
 name=webircgateway #`basename $0`
 pid_file="/var/run/$name.pid"
-stdout_log="/var/log/$name.log"
-stderr_log="/var/log/$name.err"
+std_log="/var/log/$name.log"
 
 get_pid() {
     cat "$pid_file"
@@ -31,14 +32,10 @@ case "$1" in
     else
         echo "Starting $name"
         cd "$dir"
-        if [ -z "$user" ]; then
-            sudo $cmd >> "$stdout_log" 2>> "$stderr_log" &
-        else
-            sudo -u "$user" $cmd >> "$stdout_log" 2>> "$stderr_log" &
-        fi
+        $cmd 1>> "$std_log" 2>&1 &
         echo $! > "$pid_file"
         if ! is_running; then
-            echo "Unable to start, see $stdout_log and $stderr_log"
+            echo "Unable to start, see $std_log"
             exit 1
         fi
     fi
