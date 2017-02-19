@@ -121,7 +121,7 @@ make_rpm() {
 }
 
 echo Building i386...
-rm build-dir/usr/bin/webircgateway
+rm -f build-dir/usr/bin/webircgateway
 cp webircgateway/webircgateway.linux_386 build-dir/usr/bin/webircgateway
 chmod 755 build-dir/usr/bin/webircgateway
 
@@ -130,7 +130,7 @@ make_rpm "i386"
 
 
 echo Building amd64...
-rm build-dir/usr/bin/webircgateway
+rm -f build-dir/usr/bin/webircgateway
 cp webircgateway/webircgateway.linux_amd64 build-dir/usr/bin/webircgateway
 chmod 755 build-dir/usr/bin/webircgateway
 
