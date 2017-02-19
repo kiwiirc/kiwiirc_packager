@@ -8,7 +8,7 @@
 ### END INIT INFO
 
 dir="/usr/bin"
-cmd="webircgateway"
+cmd="webircgateway --config=/etc/kiwiirc/config.conf"
 user="root"
 
 name=webircgateway #`basename $0`
