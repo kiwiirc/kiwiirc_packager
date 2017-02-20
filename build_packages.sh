@@ -63,10 +63,10 @@ mkdir -p build-dir/usr/share/kiwiirc
 
 cp -r kiwiirc/dist/* build-dir/usr/share/kiwiirc
 rm build-dir/usr/share/kiwiirc/static/config.json
-ln -s /etc/kiwiirc/config.json build-dir/usr/share/kiwiirc/static/config.json
+ln -s /etc/kiwiirc/client.json build-dir/usr/share/kiwiirc/static/config.json
 
 cat tomerge/config.conf | sed "s/^webroot.*$/webroot\ \=\ \/usr\/share\/kiwiirc\//" > build-dir/etc/kiwiirc/config.conf
-cp tomerge/www/static/config.json build-dir/etc/kiwiirc/config.json
+cp tomerge/www/static/config.json build-dir/etc/kiwiirc/client.json
 
 
 # call with make_deb "arch"
