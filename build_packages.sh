@@ -1,14 +1,5 @@
 #!/bin/bash
 
-if [ -z "$GOPATH" ]; then
-	echo "\$GOPATH is not set... please set and re-run"
-	echo "    mkdir -p gocode/src gocode/bin gocode/pkg"
-	echo "    export GOPATH=`pwd`/gocode"
-	exit
-fi
-
-
-
 source_version=1.0
 package_iteration=1
 main_email="darren@kiwiirc.com"
