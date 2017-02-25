@@ -47,7 +47,7 @@ packageDist () {
 	cp -r kiwiirc/dist/* $folder/www/
 	cp -r tomerge/* $folder
 
-	zip -r packaged/kiwiirc_$1.zip $folder
+	zip -r "packaged/kiwiirc_"$source_version"_"$1".zip" $folder
 	rm -rf $folder
 }
 
