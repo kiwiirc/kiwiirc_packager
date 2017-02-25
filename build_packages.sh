@@ -138,4 +138,4 @@ echo Cleaning up...
 rm -rf kiwiirc webircgateway build-dir
 
 echo Done
-ls packaged
+ls -lh packaged
