@@ -1,4 +1,0 @@
-#!/bin/bash
-
-update-rc.d webircgateway defaults
-/etc/init.d/webircgateway start
