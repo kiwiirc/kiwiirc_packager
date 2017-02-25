@@ -20,7 +20,7 @@ std_log="/var/log/$name.log"
 
 calling_process=`ps -o comm= $PPID`
 if [ "$calling_process" != "systemd" ]; then
-    if [ ! -z "`which systemd`" ]; then
+    if command -v systemctl > /dev/null 2>&1 ; then
         systemctl $1 webircgateway.service
         exit $?
     fi
