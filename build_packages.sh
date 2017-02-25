@@ -13,7 +13,15 @@ source_comments="Source build versions: "
 
 rm -rf kiwiirc webircgateway build-dir
 
-echo Downloading and building the client...
+function status () {
+	echo ""
+	echo "###"
+	echo "### $@"
+	echo "###"
+}
+
+status Downloading and building the client...
+
 git clone --depth=1 https://github.com/kiwiirc/kiwiirc.git
 cd kiwiirc
 yarn install
@@ -22,13 +30,13 @@ cp LICENSE dist/
 source_comments="$source_comments kiwiirc=`node -e "console.log(require('./package.json').version);"` "
 cd ..
 
-echo Downloading and building the server...
+status Downloading and building the server...
 git clone --depth=1 https://github.com/kiwiirc/webircgateway.git
 cd webircgateway
 ./webircgateway.sh prepare
 source_comments="$source_comments webircgateway=`./webircgateway.sh run --version`"
 
-echo Building...
+status Building...
 GOOS=darwin GOARCH=amd64 ./webircgateway.sh build webircgateway.darwin
 GOOS=linux GOARCH=386 ./webircgateway.sh build webircgateway.linux_386
 GOOS=linux GOARCH=amd64 ./webircgateway.sh build webircgateway.linux_amd64
@@ -52,14 +60,14 @@ packageDist () {
 }
 
 
-echo Preparing zip packages...
+status Preparing zip packages...
 mkdir -p packaged
 packageDist darwin
 packageDist linux_386
 packageDist linux_amd64
 
 
-echo Preparing distro packages...
+status Preparing distro packages...
 mkdir -p build-dir/etc/kiwiirc
 mkdir -p build-dir/usr/bin
 mkdir -p build-dir/usr/share/kiwiirc
@@ -115,7 +123,7 @@ make_rpm() {
 	--after-upgrade scripts/rpm/after-upgrade
 }
 
-echo Building i386...
+status Building i386...
 rm -f build-dir/usr/bin/webircgateway
 cp webircgateway/webircgateway.linux_386 build-dir/usr/bin/webircgateway
 chmod 755 build-dir/usr/bin/webircgateway
@@ -124,7 +132,7 @@ make_deb "i386"
 make_rpm "i386"
 
 
-echo Building amd64...
+status Building amd64...
 rm -f build-dir/usr/bin/webircgateway
 cp webircgateway/webircgateway.linux_amd64 build-dir/usr/bin/webircgateway
 chmod 755 build-dir/usr/bin/webircgateway
@@ -134,8 +142,8 @@ make_rpm "amd64"
 
 mv *.deb *.rpm packaged/
 
-echo Cleaning up...
+status Cleaning up...
 rm -rf kiwiirc webircgateway build-dir
 
-echo Done
+status Building packages complete!
 ls -lh packaged
