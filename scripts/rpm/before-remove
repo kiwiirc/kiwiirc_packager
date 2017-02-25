@@ -1,0 +1,6 @@
+#!/bin/bash
+
+/etc/init.d/webircgateway stop
+chkconfig webircgateway off
+chkconfig --del webircgateway
+

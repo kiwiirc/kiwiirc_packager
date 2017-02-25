@@ -1,0 +1,6 @@
+#!/bin/bash
+
+chkconfig --add webircgateway
+chkconfig webircgateway on
+/etc/init.d/webircgateway start
+
