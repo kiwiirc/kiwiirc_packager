@@ -17,6 +17,16 @@ name=webircgateway #`basename $0`
 pid_file="/var/run/$name.pid"
 std_log="/var/log/$name.log"
 
+
+calling_process=`ps -o comm= $PPID`
+if [ "$calling_process" != "systemd" ]; then
+    if [ ! -z "`which systemd`" ]; then
+        systemctl $1 webircgateway.service
+        exit $?
+    fi
+fi
+
+
 get_pid() {
     cat "$pid_file"
 }

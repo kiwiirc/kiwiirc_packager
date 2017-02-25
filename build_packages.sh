@@ -3,7 +3,7 @@
 source_version=`date +%y.%m.%d`.1
 package_iteration=1
 main_email="darren@kiwiirc.com"
-main_desc="Kiwi IRC webircgateway installer"
+main_desc="Kiwi IRC webircgateway."
 main_url="https://www.kiwiirc.com"
 main_category="irc"
 vendor_name="Kiwi IRC"
@@ -78,7 +78,7 @@ make_deb() {
 	fpm -s dir -C ./build-dir \
 	-a "$1" \
 	-m "$main_email" \
-	--description "$main_desc - $source_comments" \
+	--description "$main_desc $source_comments" \
 	-v $source_version \
 	--iteration $package_iteration \
 	-t deb \
@@ -100,7 +100,7 @@ make_rpm() {
 	fpm -s dir -C ./build-dir \
 	-a "$1" \
 	-m "$main_email" \
-	--description "$main_desc - $source_comments" \
+	--description "$main_desc $source_comments" \
 	-v $source_version \
 	--iteration $package_iteration \
 	-t rpm \
