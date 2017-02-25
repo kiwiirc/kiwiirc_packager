@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source_version=1.0
+source_version=`date +%y.%m.%d`.1
 package_iteration=1
 main_email="darren@kiwiirc.com"
 main_desc="Kiwi IRC webircgateway installer"
@@ -9,6 +9,7 @@ main_category="irc"
 vendor_name="Kiwi IRC"
 license_short="Licensed under the Apache License, Version 2.0"
 
+source_comments="Source build versions: "
 
 rm -rf kiwiirc webircgateway build-dir
 
@@ -18,12 +19,14 @@ cd kiwiirc
 yarn install
 npm run build
 cp LICENSE dist/
+source_comments="$source_comments kiwiirc=`node -e "console.log(require('./package.json').version);"` "
 cd ..
 
 echo Downloading and building the server...
 git clone --depth=1 https://github.com/kiwiirc/webircgateway.git
 cd webircgateway
 ./webircgateway.sh prepare
+source_comments="$source_comments webircgateway=`./webircgateway.sh run --version`"
 
 echo Building...
 GOOS=darwin GOARCH=amd64 ./webircgateway.sh build webircgateway.darwin
@@ -75,7 +78,7 @@ make_deb() {
 	fpm -s dir -C ./build-dir \
 	-a "$1" \
 	-m "$main_email" \
-	--description "$main_desc" \
+	--description "$main_desc - $source_comments" \
 	-v $source_version \
 	--iteration $package_iteration \
 	-t deb \
@@ -97,7 +100,7 @@ make_rpm() {
 	fpm -s dir -C ./build-dir \
 	-a "$1" \
 	-m "$main_email" \
-	--description "$main_desc" \
+	--description "$main_desc - $source_comments" \
 	-v $source_version \
 	--iteration $package_iteration \
 	-t rpm \
