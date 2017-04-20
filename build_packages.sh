@@ -122,7 +122,8 @@ make_rpm() {
 	--rpm-init scripts/init/webircgateway \
 	--after-install scripts/rpm/after-install \
 	--before-remove scripts/rpm/before-remove \
-	--after-upgrade scripts/rpm/after-upgrade
+	--after-upgrade scripts/rpm/after-upgrade \
+	--rpm-os linux
 }
 
 status Building i386...
