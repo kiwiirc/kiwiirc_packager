@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source_version=`date +%y.%m.%d`.1
 package_iteration=1
 main_email="darren@kiwiirc.com"
