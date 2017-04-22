@@ -6,7 +6,7 @@ identd = false
 
 [clients]
 # Default username / realname for IRC connections. If disabled it will use
-# the values provided from the RC client itself.
+# the values provided from the IRC client itself.
 # %h will be replaced with the users hostname
 # %i will be replaced with a hexed value of the users IP
 username = "%i"
@@ -24,6 +24,9 @@ port = 80
 #tls = true
 #cert = server.crt
 #key = server.key
+# If you don't have a certificate, uncomment the below line to automatically generate a
+# free certificate using letsencrypt.com (overrides the above cert/key options)
+#letsencrypt_cache = letsencrypt.cache
 
 # Serve static files from a web root folder.
 # Optional, but handy for serving the Kiwi IRC client if no other webserver is available
@@ -40,6 +43,17 @@ kiwiirc
 # No entries here will allow any website to connect.
 [allowed_origins]
 #*://example.com
+
+# If using a reverse proxy, it must be whitelisted for the client
+# hostnames to be read correctly. In CIDR format.
+# The user IPs are read from the standard X-Forwarded-For HTTP header
+[reverse_proxies]
+127.0.0.0/8
+10.0.0.0/8
+172.16.0.0/12
+192.168.0.0/16
+"::1/128"
+"fd00::/8"
 
 # Connections will be sent to a random upstream
 [upstream.1]
