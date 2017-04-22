@@ -1,4 +1,5 @@
 #!/bin/bash
 
+cp -u /etc/kiwiirc/config.conf.example /etc/kiwiirc/config.conf
 update-rc.d webircgateway defaults
 /etc/init.d/webircgateway start
