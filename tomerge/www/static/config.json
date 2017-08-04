@@ -2,12 +2,18 @@
 	"windowTitle": "Kiwi IRC - The web IRC client",
 	"startupScreen": "customServer",
 	"kiwiServer": "/webirc/kiwiirc/",
+	"restricted": true,
+	"theme": "default",
+	"themes": [
+		{ "name": "Default", "url": "static/themes/default" },
+		{ "name": "Dark", "url": "static/themes/dark" }
+	],
 	"startupOptions" : {
 		"server": "irc.kiwiirc.com",
 		"port": 6667,
 		"tls": false,
 		"direct": false,
 		"channel": "#kiwiirc",
-		"nick": "kiwi?"
+		"nick": "_kiwi?"
 	}
 }
