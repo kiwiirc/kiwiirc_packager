@@ -33,16 +33,17 @@ source_comments="$source_comments kiwiirc=`node -e "console.log(require('./packa
 cd ..
 
 status Downloading and building the server...
-git clone --depth=1 https://github.com/kiwiirc/webircgateway.git
-cd webircgateway
-./webircgateway.sh prepare
-source_comments="$source_comments server=`./webircgateway.sh run --version`"
+export GOPATH="`pwd`/gopath"
+mkdir $GOPATH
+go get github.com/kiwiirc/webircgateway
+main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
+source_comments="$source_comments server=`go run $main_go --version`"
 
 status Building...
-GOOS=darwin GOARCH=amd64 ./webircgateway.sh build webircgateway.darwin
-GOOS=linux GOARCH=386 ./webircgateway.sh build webircgateway.linux_386
-GOOS=linux GOARCH=amd64 ./webircgateway.sh build webircgateway.linux_amd64
-cd ..
+mkdir webircgateway/
+GOOS=darwin GOARCH=amd64 go build -o webircgateway/webircgateway.darwin $main_go
+GOOS=linux GOARCH=386 go build -o webircgateway/webircgateway.linux_386 $main_go
+GOOS=linux GOARCH=amd64 go build -o webircgateway/webircgateway.linux_amd64 $main_go
 
 
 packageDist () {
@@ -145,7 +146,7 @@ make_rpm "amd64"
 mv *.deb *.rpm packaged/
 
 status Cleaning up...
-rm -rf kiwiirc webircgateway build-dir
+rm -rf kiwiirc webircgateway build-dir gopath
 
 status Building packages complete!
 ls -lh packaged
