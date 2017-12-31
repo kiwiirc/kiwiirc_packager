@@ -33,8 +33,8 @@ source_comments="$source_comments kiwiirc=`node -e "console.log(require('./packa
 cd ..
 
 status Downloading and building the server...
-mkdir "$HOME/go"
-export GOPATH="$HOME/go"
+export GOPATH="`pwd`/gopath"
+mkdir $GOPATH
 go get github.com/kiwiirc/webircgateway
 main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
 source_comments="$source_comments server=`go run $main_go --version`"
@@ -146,7 +146,7 @@ make_rpm "amd64"
 mv *.deb *.rpm packaged/
 
 status Cleaning up...
-rm -rf kiwiirc webircgateway build-dir
+rm -rf kiwiirc webircgateway build-dir gopath
 
 status Building packages complete!
 ls -lh packaged
