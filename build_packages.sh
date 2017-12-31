@@ -34,13 +34,14 @@ cd ..
 
 status Downloading and building the server...
 go get github.com/kiwiirc/webircgateway
-source_comments="$source_comments server=`./webircgateway.sh run --version`"
+main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
+source_comments="$source_comments server=`go run $main_go --version`"
 
 status Building...
 mkdir webircgateway/
-GOOS=darwin GOARCH=amd64 go build ~/go/src/github.com/kiwiirc/webircgateway/main.go -o webircgateway/webircgateway.darwin
-GOOS=linux GOARCH=386 go build ~/go/src/github.com/kiwiirc/webircgateway/main.go -o webircgateway/webircgateway.linux_386
-GOOS=linux GOARCH=amd64 go build ~/go/src/github.com/kiwiirc/webircgateway/main.go -o webircgateway/webircgateway.linux_amd64
+GOOS=darwin GOARCH=amd64 go build -o webircgateway/webircgateway.darwin $main_go
+GOOS=linux GOARCH=386 go build -o webircgateway/webircgateway.linux_386 $main_go
+GOOS=linux GOARCH=amd64 go build -o webircgateway/webircgateway.linux_amd64 $main_go
 
 
 packageDist () {
