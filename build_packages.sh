@@ -33,6 +33,8 @@ source_comments="$source_comments kiwiirc=`node -e "console.log(require('./packa
 cd ..
 
 status Downloading and building the server...
+mkdir "$HOME/go"
+export GOPATH="$HOME/go"
 go get github.com/kiwiirc/webircgateway
 main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
 source_comments="$source_comments server=`go run $main_go --version`"
