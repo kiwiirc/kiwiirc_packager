@@ -33,16 +33,14 @@ source_comments="$source_comments kiwiirc=`node -e "console.log(require('./packa
 cd ..
 
 status Downloading and building the server...
-git clone --depth=1 https://github.com/kiwiirc/webircgateway.git
-cd webircgateway
-./webircgateway.sh prepare
+go get github.com/kiwiirc/webircgateway
 source_comments="$source_comments server=`./webircgateway.sh run --version`"
 
 status Building...
-GOOS=darwin GOARCH=amd64 ./webircgateway.sh build webircgateway.darwin
-GOOS=linux GOARCH=386 ./webircgateway.sh build webircgateway.linux_386
-GOOS=linux GOARCH=amd64 ./webircgateway.sh build webircgateway.linux_amd64
-cd ..
+mkdir webircgateway/
+GOOS=darwin GOARCH=amd64 go build ~/go/src/github.com/kiwiirc/webircgateway/main.go -o webircgateway/webircgateway.darwin
+GOOS=linux GOARCH=386 go build ~/go/src/github.com/kiwiirc/webircgateway/main.go -o webircgateway/webircgateway.linux_386
+GOOS=linux GOARCH=amd64 go build ~/go/src/github.com/kiwiirc/webircgateway/main.go -o webircgateway/webircgateway.linux_amd64
 
 
 packageDist () {
