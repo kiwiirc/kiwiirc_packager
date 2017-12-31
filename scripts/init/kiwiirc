@@ -1,19 +1,19 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:         webircgateway
+# Provides:         kiwiirc
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Required-Start:
 # Required-Stop:
-# Short-Description: Kiwiirc Webircgateway
-# Description:       Init script for Kiwiirc Webircgateway
+# Short-Description: KiwiIRC server
+# Description:       Init script for KiwiIRC server
 ### END INIT INFO
 
 dir="/usr/bin"
-cmd="webircgateway --config=/etc/kiwiirc/config.conf"
+cmd="kiwiirc --config=/etc/kiwiirc/config.conf"
 user="root"
 
-name=webircgateway #`basename $0`
+name=kiwiirc #`basename $0`
 pid_file="/var/run/$name.pid"
 std_log="/var/log/$name.log"
 
@@ -21,7 +21,7 @@ std_log="/var/log/$name.log"
 calling_process=`ps -o comm= $PPID`
 if [ "$calling_process" != "systemd" ]; then
     if command -v systemctl > /dev/null 2>&1 ; then
-        systemctl $1 webircgateway.service
+        systemctl $1 kiwiirc.service
         exit $?
     fi
 fi

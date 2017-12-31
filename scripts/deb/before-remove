@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/etc/init.d/webircgateway stop
-update-rc.d -f webircgateway remove
+/etc/init.d/kiwiirc stop
+update-rc.d -f kiwiirc remove

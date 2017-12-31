@@ -5,7 +5,7 @@ set -e
 source_version=`date +%y.%m.%d`.1
 package_iteration=1
 main_email="darren@kiwiirc.com"
-main_desc="Kiwi IRC webircgateway."
+main_desc="Kiwi IRC server."
 main_url="https://www.kiwiirc.com"
 main_category="irc"
 vendor_name="Kiwi IRC"
@@ -36,7 +36,7 @@ status Downloading and building the server...
 git clone --depth=1 https://github.com/kiwiirc/webircgateway.git
 cd webircgateway
 ./webircgateway.sh prepare
-source_comments="$source_comments webircgateway=`./webircgateway.sh run --version`"
+source_comments="$source_comments server=`./webircgateway.sh run --version`"
 
 status Building...
 GOOS=darwin GOARCH=amd64 ./webircgateway.sh build webircgateway.darwin
@@ -50,8 +50,8 @@ packageDist () {
 	folder=kiwiirc_$date_$1
 	mkdir $folder
 
-	cp webircgateway/webircgateway.$1 $folder/webircgateway
-	chmod +x $folder/webircgateway
+	cp webircgateway/webircgateway.$1 $folder/kiwiirc
+	chmod +x $folder/kiwiirc
 
 	mkdir $folder/www
 	cp -r kiwiirc/dist/* $folder/www/
@@ -92,12 +92,12 @@ make_deb() {
 	-v $source_version \
 	--iteration $package_iteration \
 	-t deb \
-	-n "webircgateway" \
+	-n "kiwiirc" \
 	--url "$main_url" \
 	--category "$main_category" \
 	--vendor "$vendor_name" \
 	--license "$license_short" \
-	--deb-init scripts/init/webircgateway \
+	--deb-init scripts/init/kiwiirc \
 	--after-install scripts/deb/after-install \
 	--before-remove scripts/deb/before-remove \
 	--after-upgrade scripts/deb/after-upgrade
@@ -113,12 +113,12 @@ make_rpm() {
 	-v $source_version \
 	--iteration $package_iteration \
 	-t rpm \
-	-n "webircgateway" \
+	-n "kiwiirc" \
 	--url "$main_url" \
 	--category "$main_category" \
 	--vendor "$vendor_name" \
 	--license "$license_short" \
-	--rpm-init scripts/init/webircgateway \
+	--rpm-init scripts/init/kiwiirc \
 	--after-install scripts/rpm/after-install \
 	--before-remove scripts/rpm/before-remove \
 	--after-upgrade scripts/rpm/after-upgrade \
@@ -126,18 +126,18 @@ make_rpm() {
 }
 
 status Building i386...
-rm -f build-dir/usr/bin/webircgateway
-cp webircgateway/webircgateway.linux_386 build-dir/usr/bin/webircgateway
-chmod 755 build-dir/usr/bin/webircgateway
+rm -f build-dir/usr/bin/kiwiirc
+cp webircgateway/webircgateway.linux_386 build-dir/usr/bin/kiwiirc
+chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "i386"
 make_rpm "i386"
 
 
 status Building amd64...
-rm -f build-dir/usr/bin/webircgateway
-cp webircgateway/webircgateway.linux_amd64 build-dir/usr/bin/webircgateway
-chmod 755 build-dir/usr/bin/webircgateway
+rm -f build-dir/usr/bin/kiwiirc
+cp webircgateway/webircgateway.linux_amd64 build-dir/usr/bin/kiwiirc
+chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "amd64"
 make_rpm "amd64"
