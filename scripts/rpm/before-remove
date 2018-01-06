@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/etc/init.d/webircgateway stop
-chkconfig webircgateway off
-chkconfig --del webircgateway
+/etc/init.d/kiwiirc stop
+chkconfig kiwiirc off
+chkconfig --del kiwiirc
 
