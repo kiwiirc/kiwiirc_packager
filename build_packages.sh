@@ -44,6 +44,9 @@ mkdir webircgateway/
 GOOS=darwin GOARCH=amd64 go build -o webircgateway/webircgateway.darwin $main_go
 GOOS=linux GOARCH=386 go build -o webircgateway/webircgateway.linux_386 $main_go
 GOOS=linux GOARCH=amd64 go build -o webircgateway/webircgateway.linux_amd64 $main_go
+GOOS=linux GOARCH=arm GOARM=5 go build -o webircgateway/webircgateway.linux_armel $main_go
+GOOS=linux GOARCH=arm GOARM=6 go build -o webircgateway/webircgateway.linux_armhf $main_go
+GOOS=linux GOARCH=arm64 go build -o webircgateway/webircgateway.linux_arm64 $main_go
 
 
 packageDist () {
@@ -68,6 +71,9 @@ mkdir -p packaged
 packageDist darwin
 packageDist linux_386
 packageDist linux_amd64
+packageDist linux_armel
+packageDist linux_armhf
+packageDist linux_arm64
 
 
 status Preparing distro packages...
@@ -142,6 +148,30 @@ chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "amd64"
 make_rpm "amd64"
+
+status Building armel...
+rm -f build-dir/usr/bin/kiwiirc
+cp webircgateway/webircgateway.linux_armel build-dir/usr/bin/kiwiirc
+chmod 755 build-dir/usr/bin/kiwiirc
+
+make_deb "armel"
+make_rpm "armel"
+
+status Building armhf...
+rm -f build-dir/usr/bin/kiwiirc
+cp webircgateway/webircgateway.linux_armhf build-dir/usr/bin/kiwiirc
+chmod 755 build-dir/usr/bin/kiwiirc
+
+make_deb "armhf"
+make_rpm "armhf"
+
+status Building arm64...
+rm -f build-dir/usr/bin/kiwiirc
+cp webircgateway/webircgateway.linux_arm64 build-dir/usr/bin/kiwiirc
+chmod 755 build-dir/usr/bin/kiwiirc
+
+make_deb "arm64"
+make_rpm "arm64"
 
 mv *.deb *.rpm packaged/
 
