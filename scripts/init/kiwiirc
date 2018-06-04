@@ -9,9 +9,11 @@
 # Description:       Init script for KiwiIRC server
 ### END INIT INFO
 
-dir="/usr/bin"
-cmd="kiwiirc --config=/etc/kiwiirc/config.conf"
-user="root"
+dir="/var/lib/kiwiirc"
+cmd="/usr/bin/kiwiirc"
+args="--config=/etc/kiwiirc/config.conf"
+user="kiwiirc"
+group="kiwiirc"
 
 name=kiwiirc #`basename $0`
 pid_file="/var/run/$name.pid"
@@ -42,8 +44,10 @@ case "$1" in
     else
         echo "Starting $name"
         cd "$dir"
-        $cmd 1>> "$std_log" 2>&1 &
-        echo $! > "$pid_file"
+        touch $std_log
+        chown $user:$group $std_log
+        start-stop-daemon --start --quiet --chuid $user:$group --pidfile $pid_file --make-pidfile --exec $cmd -- $args 1>> "$std_log" 2>&1 &
+        sleep 1;
         if ! is_running; then
             echo "Unable to start, see $std_log"
             exit 1
