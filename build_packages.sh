@@ -47,6 +47,8 @@ GOOS=linux GOARCH=amd64 go build -o webircgateway/webircgateway.linux_amd64 $mai
 GOOS=linux GOARCH=arm GOARM=5 go build -o webircgateway/webircgateway.linux_armel $main_go
 GOOS=linux GOARCH=arm GOARM=6 go build -o webircgateway/webircgateway.linux_armhf $main_go
 GOOS=linux GOARCH=arm64 go build -o webircgateway/webircgateway.linux_arm64 $main_go
+GOOS=windows GOARCH=386 go build -o webircgateway/webircgateway.windows_386 $main_go
+GOOS=windows GOARCH=amd64 go build -o webircgateway/webircgateway.windows_amd64 $main_go
 
 
 packageDist () {
@@ -54,8 +56,12 @@ packageDist () {
 	folder=kiwiirc_$date_$1
 	mkdir $folder
 
-	cp webircgateway/webircgateway.$1 $folder/kiwiirc
-	chmod +x $folder/kiwiirc
+    if [[ $1 == windows* ]]; then
+        cp webircgateway/webircgateway.$1 $folder/kiwiirc.exe
+    else
+        cp webircgateway/webircgateway.$1 $folder/kiwiirc
+        chmod +x $folder/kiwiirc
+    fi
 
 	mkdir $folder/www
 	cp -r kiwiirc/dist/* $folder/www/
@@ -74,6 +80,8 @@ packageDist linux_amd64
 packageDist linux_armel
 packageDist linux_armhf
 packageDist linux_arm64
+packageDist windows_386
+packageDist windows_amd64
 
 
 status Preparing distro packages...
