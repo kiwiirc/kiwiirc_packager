@@ -13,7 +13,7 @@ license_short="Licensed under the Apache License, Version 2.0"
 
 source_comments="Source build versions: "
 
-rm -rf kiwiirc webircgateway build-dir
+rm -rf kiwiirc webircgateway build-dir gopath
 
 function status () {
 	echo ""
@@ -34,17 +34,17 @@ cd ..
 
 status Downloading and building the server...
 export GOPATH="`pwd`/gopath"
-mkdir $GOPATH
+mkdir -p $GOPATH/bin/
 go get github.com/kiwiirc/webircgateway
 main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
 source_comments="$source_comments server=`go run $main_go --version`"
 
-
-# run dep ensure in our gateway path to build vendor folder
-build_dir=`pwd`
+# install and run dep ensure
+build_dir="`pwd`"
+curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 cd $GOPATH/src/github.com/kiwiirc/webircgateway/
-dep ensure
-cd build_dir
+$GOPATH/bin/dep ensure
+cd $build_dir
 
 status Building...
 mkdir webircgateway/
