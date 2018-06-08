@@ -39,6 +39,13 @@ go get github.com/kiwiirc/webircgateway
 main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
 source_comments="$source_comments server=`go run $main_go --version`"
 
+
+# run dep ensure in our gateway path to build vendor folder
+build_dir=`pwd`
+cd $GOPATH/src/github.com/kiwiirc/webircgateway/
+dep ensure
+cd build_dir
+
 status Building...
 mkdir webircgateway/
 GOOS=darwin GOARCH=amd64 go build -o webircgateway/webircgateway.darwin $main_go
