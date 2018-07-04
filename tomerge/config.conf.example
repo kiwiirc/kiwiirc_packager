@@ -4,6 +4,16 @@ logLevel = 3
 # Enable the built in identd server (listens on port 113)
 identd = false
 
+# The name of this gateway as reported in WEBIRC to IRC servers
+gateway_name = "webircgateway"
+
+# A secret string used for generating client JWT tokens. Do not share this!
+secret = ""
+
+[verify]
+recaptcha_secret = ""
+recaptcha_key = ""
+
 [clients]
 # Default username / realname for IRC connections. If disabled it will use
 # the values provided from the IRC client itself.
@@ -11,6 +21,9 @@ identd = false
 # %i will be replaced with a hexed value of the users IP
 username = "%i"
 realname = "I am a webchat user"
+
+# This hostname value will only be used when using a WEBIRC password
+#hostname = "%h"
 
 # The websocket / http server
 [server.1]
@@ -25,8 +38,14 @@ port = 80
 #cert = server.crt
 #key = server.key
 # If you don't have a certificate, uncomment the below line to automatically generate a
-# free certificate using letsencrypt.com (overrides the above cert/key options)
-#letsencrypt_cache = letsencrypt.cache
+# free certificate using letsencrypt.com (overrides the above cert/key options). This requires
+# a server running on port 80 to initially generate the certificate.
+#letsencrypt_cache = ./certs
+
+# Example unix socket server
+#[server.3]
+#bind = unix:/tmp/webircgateway.sock
+#bind_mode = 0777
 
 # Serve static files from a web root folder.
 # Optional, but handy for serving the Kiwi IRC client if no other webserver is available
@@ -64,6 +83,7 @@ tls = false
 timeout = 5
 # Throttle the lines being written by X per second
 throttle = 2
+# Webirc password as set in the IRC server config
 webirc = ""
 
 
@@ -81,6 +101,7 @@ throttle = 2
 #irc.example.com
 #*.example2.com
 
+# Webirc passwords used when running in the public gateway mode
 [gateway.webirc]
 irc.network.org = webirc_password
 irc.network2.org = webirc_password
