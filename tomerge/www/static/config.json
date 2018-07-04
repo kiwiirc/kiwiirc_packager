@@ -1,6 +1,6 @@
 {
 	"windowTitle": "Kiwi IRC - The web IRC client",
-	"startupScreen": "customServer",
+	"startupScreen": "welcome",
 	"kiwiServer": "/webirc/kiwiirc/",
 	"restricted": true,
 	"theme": "default",
@@ -14,6 +14,9 @@
 		"tls": false,
 		"direct": false,
 		"channel": "#kiwiirc",
-		"nick": "_kiwi?"
+		"nick": "_kiwi?",
+		"greetingText": "Hello!",
+		"infoBackground": "",
+		"infoContent": "",
 	}
 }
