@@ -41,9 +41,7 @@ source_comments="$source_comments server=`go run $main_go --version`"
 
 # install and run dep ensure
 build_dir="`pwd`"
-curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 cd $GOPATH/src/github.com/kiwiirc/webircgateway/
-$GOPATH/bin/dep ensure
 cd $build_dir
 
 status Building...
