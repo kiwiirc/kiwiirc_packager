@@ -1,7 +1,7 @@
 {
-	"windowTitle": "Kiwi IRC - The web IRC client",
+	"windowTitle": "Web IRC",
 	"startupScreen": "welcome",
-	"kiwiServer": "/webirc/kiwiirc/",
+	"kiwiServer": "https://do-e.clients.kiwiirc.com/webirc/kiwiirc/?sid=1nhaix8j6nxot&p=2",
 	"restricted": true,
 	"theme": "default",
 	"themes": [
@@ -15,14 +15,10 @@
 		{ "name": "Sky", "url": "static/themes/sky" }
 	],
 	"startupOptions" : {
-		"server": "irc.kiwiirc.com",
-		"port": 6667,
-		"tls": false,
-		"direct": false,
 		"channel": "#kiwiirc-default",
 		"nick": "web?",
 		"greetingText": "Hello!",
 		"infoBackground": "",
-		"infoContent": ""
+		"infoContent": "<h3>Welcome to your Kiwi IRC page!</h3>You may want to customise or remove this message so please<br />glance over the www/static/config.json file."
 	}
 }
