@@ -1,7 +1,7 @@
 {
 	"windowTitle": "Web IRC",
 	"startupScreen": "welcome",
-	"kiwiServer": "https://do-e.clients.kiwiirc.com/webirc/kiwiirc/?sid=1nhaix8j6nxot&p=2",
+	"kiwiServer": "/webirc/kiwiirc/",
 	"restricted": true,
 	"theme": "default",
 	"themes": [
