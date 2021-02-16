@@ -188,8 +188,24 @@ make_rpm "arm64"
 
 mv *.deb *.rpm packaged/
 
+status Building electron packages
+cd $build_dir
+git clone --depth=1 https://github.com/kiwiirc/kiwiirc-desktop.git
+cd kiwiirc-desktop
+yarn install
+yarn update:version
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    yarn build:dist --mac --linux --win
+else
+    yarn build:dist
+fi
+
+cp build/*.{zip,dmg,deb,rpm,exe} ../packaged
+cd ..
+
 status Cleaning up...
-rm -rf kiwiirc webircgateway build-dir gopath
+rm -rf kiwiirc kiwiirc-desktop webircgateway build-dir gopath
 
 status Building packages complete!
 ls -lh packaged
