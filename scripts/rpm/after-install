@@ -1,5 +1,7 @@
 #!/bin/bash
 
+adduser --system --group --home /var/lib/kiwiirc kiwiirc
+
 cp -u /etc/kiwiirc/config.conf.example /etc/kiwiirc/config.conf
 chkconfig --add kiwiirc
 chkconfig kiwiirc on
