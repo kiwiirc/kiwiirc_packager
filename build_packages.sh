@@ -23,7 +23,6 @@ function status () {
 }
 
 status Downloading and building the client...
-
 git clone --depth=1 https://github.com/kiwiirc/kiwiirc.git
 cd kiwiirc
 yarn install
@@ -34,27 +33,23 @@ cd ..
 
 status Downloading and building the server...
 export GOPATH="`pwd`/gopath"
-mkdir -p $GOPATH/bin/
-go get github.com/kiwiirc/webircgateway
-main_go="$GOPATH/src/github.com/kiwiirc/webircgateway/main.go"
-source_comments="$source_comments server=`go run $main_go --version`"
-
-# install and run dep ensure
-build_dir="`pwd`"
-cd $GOPATH/src/github.com/kiwiirc/webircgateway/
-cd $build_dir
+mkdir -p $GOPATH
+git clone --depth=1 https://github.com/kiwiirc/webircgateway.git
+cd webircgateway
+source_comments="$source_comments server=`go run main.go --version`"
 
 status Building...
-mkdir webircgateway/
-GOOS=darwin GOARCH=amd64 go build -o webircgateway/webircgateway.darwin $main_go
-GOOS=linux GOARCH=386 go build -o webircgateway/webircgateway.linux_386 $main_go
-GOOS=linux GOARCH=amd64 go build -o webircgateway/webircgateway.linux_amd64 $main_go
-GOOS=linux GOARCH=arm GOARM=5 go build -o webircgateway/webircgateway.linux_armel $main_go
-GOOS=linux GOARCH=arm GOARM=6 go build -o webircgateway/webircgateway.linux_armhf $main_go
-GOOS=linux GOARCH=arm64 go build -o webircgateway/webircgateway.linux_arm64 $main_go
-GOOS=windows GOARCH=386 go build -o webircgateway/webircgateway.windows_386 $main_go
-GOOS=windows GOARCH=amd64 go build -o webircgateway/webircgateway.windows_amd64 $main_go
-
+mkdir builds/
+GOOS=darwin GOARCH=amd64 go build -o dist/webircgateway.darwin_amd64 main.go
+GOOS=darwin GOARCH=arm64 go build -o dist/webircgateway.darwin_arm64 main.go
+GOOS=linux GOARCH=386 GO386=sse2 go build -o dist/webircgateway.linux_386 main.go
+GOOS=linux GOARCH=amd64 go build -o dist/webircgateway.linux_amd64 main.go
+GOOS=linux GOARCH=arm GOARM=5 go build -o dist/webircgateway.linux_armel main.go
+GOOS=linux GOARCH=arm GOARM=6 go build -o dist/webircgateway.linux_armhf main.go
+GOOS=linux GOARCH=arm64 go build -o dist/webircgateway.linux_arm64 main.go
+GOOS=windows GOARCH=386 GO386=sse2 go build -o dist/webircgateway.windows_386 main.go
+GOOS=windows GOARCH=amd64 go build -o dist/webircgateway.windows_amd64 main.go
+cd ..
 
 packageDist () {
 	date=`date +%Y%m%d`
@@ -62,9 +57,9 @@ packageDist () {
 	mkdir $folder
 
     if [[ $1 == windows* ]]; then
-        cp webircgateway/webircgateway.$1 $folder/kiwiirc.exe
+        cp webircgateway/dist/webircgateway.$1 $folder/kiwiirc.exe
     else
-        cp webircgateway/webircgateway.$1 $folder/kiwiirc
+        cp webircgateway/dist/webircgateway.$1 $folder/kiwiirc
         chmod +x $folder/kiwiirc
     fi
 
@@ -79,7 +74,8 @@ packageDist () {
 
 status Preparing zip packages...
 mkdir -p packaged
-packageDist darwin
+packageDist darwin_amd64
+packageDist darwin_arm64
 packageDist linux_386
 packageDist linux_amd64
 packageDist linux_armel
@@ -147,7 +143,7 @@ make_rpm() {
 
 status Building i386...
 rm -f build-dir/usr/bin/kiwiirc
-cp webircgateway/webircgateway.linux_386 build-dir/usr/bin/kiwiirc
+cp webircgateway/dist/webircgateway.linux_386 build-dir/usr/bin/kiwiirc
 chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "i386"
@@ -156,7 +152,7 @@ make_rpm "i386"
 
 status Building amd64...
 rm -f build-dir/usr/bin/kiwiirc
-cp webircgateway/webircgateway.linux_amd64 build-dir/usr/bin/kiwiirc
+cp webircgateway/dist/webircgateway.linux_amd64 build-dir/usr/bin/kiwiirc
 chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "amd64"
@@ -164,7 +160,7 @@ make_rpm "amd64"
 
 status Building armel...
 rm -f build-dir/usr/bin/kiwiirc
-cp webircgateway/webircgateway.linux_armel build-dir/usr/bin/kiwiirc
+cp webircgateway/dist/webircgateway.linux_armel build-dir/usr/bin/kiwiirc
 chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "armel"
@@ -172,7 +168,7 @@ make_rpm "armel"
 
 status Building armhf...
 rm -f build-dir/usr/bin/kiwiirc
-cp webircgateway/webircgateway.linux_armhf build-dir/usr/bin/kiwiirc
+cp webircgateway/dist/webircgateway.linux_armhf build-dir/usr/bin/kiwiirc
 chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "armhf"
@@ -180,7 +176,7 @@ make_rpm "armhf"
 
 status Building arm64...
 rm -f build-dir/usr/bin/kiwiirc
-cp webircgateway/webircgateway.linux_arm64 build-dir/usr/bin/kiwiirc
+cp webircgateway/dist/webircgateway.linux_arm64 build-dir/usr/bin/kiwiirc
 chmod 755 build-dir/usr/bin/kiwiirc
 
 make_deb "arm64"
