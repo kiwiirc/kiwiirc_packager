@@ -2,6 +2,7 @@
 
 set -e
 
+version_tag=$1
 source_version=`date +%y.%m.%d`.1
 package_iteration=1
 main_email="darren@kiwiirc.com"
@@ -12,6 +13,10 @@ vendor_name="Kiwi IRC"
 license_short="Licensed under the Apache License, Version 2.0"
 
 source_comments="Source build versions: "
+
+if [[ $version_tag == v* ]]; then
+	source_version="$version_tag"
+fi
 
 rm -rf kiwiirc webircgateway build-dir gopath
 
@@ -56,18 +61,18 @@ packageDist () {
 	folder=kiwiirc_$date_$1
 	mkdir $folder
 
-    if [[ $1 == windows* ]]; then
-        cp webircgateway/dist/webircgateway.$1 $folder/kiwiirc.exe
-    else
-        cp webircgateway/dist/webircgateway.$1 $folder/kiwiirc
-        chmod +x $folder/kiwiirc
-    fi
+	if [[ $1 == windows* ]]; then
+		cp webircgateway/dist/webircgateway.$1 $folder/kiwiirc.exe
+	else
+		cp webircgateway/dist/webircgateway.$1 $folder/kiwiirc
+		chmod +x $folder/kiwiirc
+	fi
 
 	mkdir $folder/www
 	cp -r kiwiirc/dist/* $folder/www/
 	cp -r tomerge/* $folder
 
-	zip -r "packaged/kiwiirc_"$source_version"_"$1".zip" $folder
+	zip -r "packaged/kiwiirc_"$source_version"-"$package_iteration"_"$1".zip" $folder
 	rm -rf $folder
 }
 
