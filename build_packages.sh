@@ -185,7 +185,9 @@ make_rpm "arm64"
 mv *.deb *.rpm packaged/
 
 status Cleaning up...
-rm -rf kiwiirc webircgateway build-dir gopath
+rm -rf kiwiirc webircgateway build-dir
+# don't fail if gopath cannot be removed
+rm -rf gopath || true
 
 status Building packages complete!
 ls -lh packaged
