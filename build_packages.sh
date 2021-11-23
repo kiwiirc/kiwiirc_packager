@@ -103,6 +103,12 @@ cat tomerge/config.conf.example | sed "s/^webroot.*$/webroot\ \=\ \/usr\/share\/
 cp tomerge/www/static/config.json build-dir/etc/kiwiirc/client.json
 
 
+status Build client zip
+mkdir -p to-zip/kiwiirc
+cp -r kiwiirc/dist/* to-zip/kiwiirc
+zip -r "packaged/kiwiirc-client_"$source_version"-"$package_iteration"_any.zip" to-zip/
+
+
 # call with make_deb "arch"
 make_deb() {
 	# add -e to edit before making package
@@ -190,7 +196,7 @@ make_rpm "arm64"
 mv *.deb *.rpm packaged/
 
 status Cleaning up...
-rm -rf kiwiirc webircgateway build-dir
+rm -rf kiwiirc webircgateway build-dir to-zip
 # don't fail if gopath cannot be removed
 rm -rf gopath || true
 
