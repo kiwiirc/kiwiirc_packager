@@ -106,7 +106,9 @@ cp tomerge/www/static/config.json build-dir/etc/kiwiirc/client.json
 status Build client zip
 mkdir -p to-zip/kiwiirc
 cp -r kiwiirc/dist/* to-zip/kiwiirc
-zip -r "packaged/kiwiirc-client_"$source_version"-"$package_iteration"_any.zip" to-zip/
+cd to-zip
+zip -r "packaged/kiwiirc-client_"$source_version"-"$package_iteration"_any.zip" kiwiirc/
+cd ..
 
 
 # call with make_deb "arch"
