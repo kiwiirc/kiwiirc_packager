@@ -15,7 +15,7 @@ license_short="Licensed under the Apache License, Version 2.0"
 source_comments="Source build versions: "
 
 if [[ $version_tag == v* ]]; then
-	source_version="$version_tag"
+	source_version="${version_tag:1}"
 fi
 
 rm -rf kiwiirc webircgateway build-dir gopath
