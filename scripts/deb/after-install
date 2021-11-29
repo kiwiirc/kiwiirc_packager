@@ -1,5 +1,6 @@
 #!/bin/bash
 
-cp -u /etc/kiwiirc/config.conf.example /etc/kiwiirc/config.conf
+cp -n /etc/kiwiirc/client.example.json /etc/kiwiirc/client.json
+cp -n /etc/kiwiirc/config.example.conf /etc/kiwiirc/config.conf
 update-rc.d kiwiirc defaults
 /etc/init.d/kiwiirc start
