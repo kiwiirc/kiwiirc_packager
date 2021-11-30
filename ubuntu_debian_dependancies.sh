@@ -1,6 +1,6 @@
 #!/bin/bash
+
 sudo apt-get update
-sudo apt-get upgrade -y
 sudo apt-get install -y build-essential curl git libffi-dev libfontconfig1 rpm ruby ruby-dev software-properties-common zip
 
 # GoLang
@@ -20,6 +20,5 @@ sudo gem install fpm
 
 # kiwiirc-desktop electron requirements
 sudo dpkg --add-architecture i386
-sudo apt-get update -y
-sudo apt-get upgrade -y
+sudo apt-get update
 sudo apt-get install -y libopenjp2-tools libarchive-tools gcc-multilib g++-multilib wine wine32:i386
