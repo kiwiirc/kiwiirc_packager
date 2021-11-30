@@ -19,5 +19,8 @@ sudo gem install fpm
 
 # kiwiirc-desktop electron requirements
 sudo dpkg --add-architecture i386
+wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+sudo apt-get install software-properties-common
+sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
 sudo apt-get update -y
-sudo apt-get install -y libopenjp2-tools libarchive-tools gcc-multilib g++-multilib wine libwine:i386 wine32:i386
+sudo apt-get install -y libopenjp2-tools libarchive-tools gcc-multilib g++-multilib winehq-stable
