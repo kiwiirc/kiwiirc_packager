@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo apt-get update
+sudo apt-get upgrade -y
 sudo apt-get install -y build-essential curl git libffi-dev libfontconfig1 rpm ruby ruby-dev software-properties-common zip
 
 # GoLang
@@ -19,8 +20,6 @@ sudo gem install fpm
 
 # kiwiirc-desktop electron requirements
 sudo dpkg --add-architecture i386
-wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-sudo apt-get install software-properties-common
-sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
 sudo apt-get update -y
-sudo apt-get install -y --install-recommends libopenjp2-tools libarchive-tools gcc-multilib g++-multilib winehq-stable
+sudo apt-get upgrade -y
+sudo apt-get install -y libopenjp2-tools libarchive-tools gcc-multilib g++-multilib wine wine32:i386
