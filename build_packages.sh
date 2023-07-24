@@ -100,9 +100,9 @@ status "Download and build kiwiirc-desktop"
 git clone --depth=1 https://github.com/kiwiirc/kiwiirc-desktop.git $repo_dir/kiwiirc-desktop
 cd $repo_dir/kiwiirc-desktop
 
-# link kiwiirc-desktop to kiwiirc client cloned above
+# copy kiwiirc client cloned above to kiwiirc-desktop
 rm -rf kiwiirc
-ln -s $repo_dir/kiwiirc kiwiirc
+cp -r $repo_dir/kiwiirc kiwiirc
 
 # build kiwiirc-desktop
 yarn install
