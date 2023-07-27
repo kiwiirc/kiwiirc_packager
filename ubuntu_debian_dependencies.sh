@@ -20,4 +20,4 @@ sudo gem install fpm
 # kiwiirc-desktop electron requirements
 sudo dpkg --add-architecture i386
 sudo apt-get update
-sudo apt-get install -y libopenjp2-tools libarchive-tools gcc-multilib g++-multilib wine64 wine32:i386 libwine:i386
+sudo apt-get install -y libopenjp2-tools libarchive-tools gcc-multilib g++-multilib wine64 wine32:i386 libwine:i386 libfaudio0:i386 libglib2.0-0:i386 libgphoto2-6:i386 libgstreamer-plugins-base1.0-0:i386 libgstreamer1.0-0:i386
